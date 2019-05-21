@@ -2,7 +2,23 @@
 
 \usetheme{Madrid}
 \usecolortheme{beaver}
-%\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption}[numbered]
+\makeatother
+\setbeamertemplate{footline}
+{\leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor{}~(\insertshortinstitute{})
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+  \end{beamercolorbox}}%
+}
+\makeatletter
+\setbeamertemplate{navigation symbols}{}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english, russian]{babel}
@@ -10,6 +26,7 @@
 \usepackage{animate}
 \usepackage{graphicx}
 \bibliographystyle{unsrt}
+
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,
     linkcolor=blue,
@@ -26,24 +43,29 @@
 
 
 %Information to be included in the title page:
-\title{Обратная задача восстановления формы отражающей поверхности методом обратно рассеянных электронов}
-\author{А.А.~Борзунов, В.Ю.~Караулов, Н.А.~Кошев, Д.В.~Лукьяненко, Э.И.~Рау, А.Г.~Ягола, С.В.~Зайцев}
-\institute{Московский Государственный Университет им. М.В. Ломоносова}
+\title[Восстановление топографии поверхности]{Обратная задача восстановления формы отражающей поверхности методом обратно рассеянных электронов}
+\author[А.А. Борзунов]{А.А.~Борзунов \inst{1} \and В.Ю.~Караулов \inst{1} \and Н.А.~Кошев \inst{2} \and Д.В.~Лукьяненко \inst{1} \and Э.И.~Рау \inst{1} \and А.Г.~Ягола \inst{1} \and С.В.~Зайцев \inst{1}}
+\institute[МГУ им М.В. Ломоносова]{\inst{1}Московский Государственный Университет им. М.В. Ломоносова \and \inst{2}Сколковский институт науки и технологий }
+\titlegraphic{\includegraphics[width=2cm]{ff.png}~\includegraphics[width=2cm]{Skoltech-logo.png}
+}
+
 \date{22 мая 2019 г.}
 
 
 
 \begin{document}
 
-\frame{\titlepage}
+\begin{frame}
+    \titlepage
+\end{frame}
 
 \begin{frame}
     \frametitle{Проблематика}
     \begin{columns}
-        \begin{column}{0.40\textwidth}
+        \begin{column}{0.5\textwidth}
             \includegraphics[width=1.0\linewidth]{VA.png}
         \end{column}
-        \begin{column}{0.6\textwidth}
+        \begin{column}{0.5\textwidth}
             % nothing here, will be in the next frame
         \end{column}
     \end{columns}
@@ -66,7 +88,7 @@
     \frametitle{Экспериментальная установка}
     \begin{figure}
         \includegraphics[width=0.6\linewidth]{detector_structure.eps}
-        \caption{Устройство детектора в плоскости $x$. $\alpha$~--- угол между нормалью малого участка поверхности и электронным лучом $I_0$, $\beta$~--- азимутальный угол, $A,B,C,D$~--- детекторы, O-образец, $\Omega_{b}$~--- телесный угол детектора $D$ отклоненного на угол $\theta_b$, $H$~--- рабочее расстояние СЭМ.}
+        \caption{Устройство детектора в плоскости $x$. $\alpha$~--- угол между нормалью малого участка поверхности и электронным лучом $I_0$, $A,B,C,D$~--- детекторы, O-образец, $\Omega_{b}$~--- телесный угол детектора $D$ отклоненного на угол $\theta_b$, $H$~--- рабочее расстояние СЭМ.}
         {\label{fig:detector_structure}}% chktex 8
     \end{figure}
 \end{frame}
@@ -138,16 +160,17 @@
 \begin{frame}[allowframebreaks]
     \frametitle{Восстановление поверхности}
 
-    \begin{displaymath}
+    \begin{equation}
         \left\{
             \begin{split}
         &\nabla Z(x,y) = (P^x, P^y), \\
         &Z(0,0) = 0,
             \end{split}
         \right.
-    \end{displaymath}
+    \end{equation}
+    \small где начальное условие выбирается произвольным образом для любой точки.
 
-    Преобразуем $P^x$ следующим образом
+    \small Преобразуем $P^x$ следующим образом
     \begin{equation}
         P^x \equiv
         \left(
@@ -176,23 +199,25 @@
         \equiv{}  B^x.
     \end{equation}
 
-    Поступая аналогично с $P^y$ получим $B^y$ и с искомой функцией $Z$~---~$\hat{Z}$.
+    \small Поступая аналогично с $P^y$ получим $B^y$ и с искомой функцией $Z$~---~$\hat{Z}$.
+    \small Составим матрицу $A$ размером $(2N^2, N^2)$, где первые $N^2$ строк соответствуют конечно разностной аппроксимации $\frac{\partial}{\partial x}$, а последние $N^2$ строк~---~$\frac{\partial}{\partial y}$.
 
-    Составим матрицу $A$ размером $(2N^2, N^2)$, где первые $N^2$ строк соответствуют конечно разностной аппроксимации $\frac{\partial}{\partial x}$, а последние $N^2$ строк~---~$\frac{\partial}{\partial y}$.
-
-    Введем переменную сдвига индексов $s = N^2$ для второй части матрицы $A$.
+    \small Введем переменную сдвига индексов $s = N^2$ для второй части матрицы $A$.
     \begin{equation}
         \begin{array}{lll}
             a_{i,i} = -1/h            & for & i = 1:N^2                                       \\
             a_{i,i+N} = 1/h           & for & i = 1:N^2 - N                                   \\
             a_{i,i-N} = 1/h           & for & i = N^2 - N:N^2                                 \\
-            a_{s+i+j, i+j} = -1/h     & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1, j = 0:N-2  \\
-            a_{s+i+j, i+j+1} = -1/h   & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1, j = 0:N-2  \\
+            a_{s+i+j, i+j} = -1/h     & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1, \\
+                                      & & j = 0:N-2  \\
+            a_{s+i+j, i+j+1} = -1/h   & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1, \\
+                                      & & j = 0:N-2  \\
             a_{s+i+N-1, i+N-1} = -1/h & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1             \\
             a_{s+i+N-1, i+N-2} = 1/h  & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1
         \end{array}
     \end{equation}
 
+    \newpage
     Составим СЛАУ
     \begin{equation}
         \label{eq:SLAE}
@@ -239,17 +264,17 @@
 \end{frame}
 
 \begin{frame}[allowframebreaks]
-    \bibliography{report}
+    \bibliography{bibliography}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Текст презентации}
+    \frametitle{Спасибо за внимание!}
     Текст презентации доступен по ссылке:
     \url{https://github.com/aborzunov/report22May}
-    \begin{figure}
+    \begin{figure*}
         \includegraphics[width=0.5\linewidth]{repo_link.eps}
-        {\label{fig:indentor}}% chktex 8
-    \end{figure}
+    \end{figure*}
+    \usebeamerfont{institute} Contact: \url{Andrey.Borzunov@gmail.com}
 
 \end{frame}
 \end{document}
