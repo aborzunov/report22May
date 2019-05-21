@@ -10,26 +10,24 @@
 \usepackage{animate}
 \usepackage{graphicx}
 \bibliographystyle{unsrt}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
 
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{lscape}
 \usepackage{color}
-
 \graphicspath{{./images/}}
-
-\addtobeamertemplate{navigation symbols}{}{%
-    \usebeamerfont{footline}%
-    \usebeamercolor[fg]{footline}%
-    \hspace{1em}%
-    \insertframenumber/\inserttotalframenumber
-}
 
 
 %Information to be included in the title page:
 \title{Обратная задача восстановления формы отражающей поверхности методом обратно рассеянных электронов}
-\author{А.А. Борзунов, В.Ю. Караулов, Н.А. Кошев, Д.В. Лукьяненко, Э.И. Рау, А.Г. Ягола, С.В. Зайцев}
+\author{А.А.~Борзунов, В.Ю.~Караулов, Н.А.~Кошев, Д.В.~Лукьяненко, Э.И.~Рау, А.Г.~Ягола, С.В.~Зайцев}
 \institute{Московский Государственный Университет им. М.В. Ломоносова}
 \date{22 мая 2019 г.}
 
@@ -240,14 +238,18 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}
-    Текст презентации доступен по ссылке:
-
-\end{frame}
-
-
 \begin{frame}[allowframebreaks]
     \bibliography{report}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Текст презентации}
+    Текст презентации доступен по ссылке:
+    \url{https://github.com/aborzunov/report22May}
+    \begin{figure}
+        \includegraphics[width=0.5\linewidth]{repo_link.eps}
+        {\label{fig:indentor}}% chktex 8
+    \end{figure}
+
+\end{frame}
 \end{document}

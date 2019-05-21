@@ -262,3 +262,4 @@ TSWLatexianTemp*
 
 # glossaries-extra
 *.ist
+*.json
