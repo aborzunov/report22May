@@ -1,0 +1,253 @@
+\documentclass{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{beaver}
+%\setbeamertemplate{caption}[numbered]
+
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+
+\usepackage{animate}
+\usepackage{graphicx}
+\bibliographystyle{unsrt}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{lscape}
+\usepackage{color}
+
+\graphicspath{{./images/}}
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+
+%Information to be included in the title page:
+\title{Обратная задача восстановления формы отражающей поверхности методом обратно рассеянных электронов}
+\author{А.А. Борзунов, В.Ю. Караулов, Н.А. Кошев, Д.В. Лукьяненко, Э.И. Рау, А.Г. Ягола, С.В. Зайцев}
+\institute{Московский Государственный Университет им. М.В. Ломоносова}
+\date{22 мая 2019 г.}
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+    \frametitle{Проблематика}
+    \begin{columns}
+        \begin{column}{0.40\textwidth}
+            \includegraphics[width=1.0\linewidth]{VA.png}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            % nothing here, will be in the next frame
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% Создаем анимацию посредством копирования слайда :-)
+\begin{frame}
+    \frametitle{Проблематика}
+    \begin{columns}
+        \begin{column}{0.40\textwidth}
+            \includegraphics[width=1.0\linewidth]{VA.png}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \includegraphics[width=1.10\linewidth]{tin-copper.eps}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Экспериментальная установка}
+    \begin{figure}
+        \includegraphics[width=0.6\linewidth]{detector_structure.eps}
+        \caption{Устройство детектора в плоскости $x$. $\alpha$~--- угол между нормалью малого участка поверхности и электронным лучом $I_0$, $\beta$~--- азимутальный угол, $A,B,C,D$~--- детекторы, O-образец, $\Omega_{b}$~--- телесный угол детектора $D$ отклоненного на угол $\theta_b$, $H$~--- рабочее расстояние СЭМ.}
+        {\label{fig:detector_structure}}% chktex 8
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Постановка задачи}
+    Согласно~\cite{PaluszynskiSlowko2005Vacuum, DrzazgaPaluszynski2005Measurement} интенсивность сигнала связана с углом наклона соответствующего участка поверхности:
+    $$ I_{AB} = \frac{I_A - I_B}{I_A + I_B} \sim \tan{\alpha^x}, \quad I_{EF} = \frac{I_E - I_F}{I_E + I_F} \sim \tan{\alpha^y} $$
+    \textbf{Задача 1:} Сигнал $I_{AB}(x,y), I_{EF}(x,y)$ в области $P$ предполагается известным. Необходимо восстановить градиент поверхности $\left(\frac{\partial Z}{\partial x}(x,y), \frac{\partial Z}{\partial y} (x,y) \right), (x,y) \in P$.
+
+    \vfill
+
+    \textbf{Задача 2:} Градиент
+    \begin{equation}
+        {\Big(\frac{\partial Z}{\partial x}(x,y),
+        \frac{\partial Z}{\partial y} (x,y)\Big)}^{T} =
+        {\big(P^x(x,y), P^y(x,y)\big)}^T, \quad (x,y) \in P
+    \end{equation}
+    предполагается известным. Найти функцию $Z(x,y)$ представляющую восстанавливаемую поверхность.
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{Восстановление связи интенсивности сигнала с углом наклона участка поверхности с помощью калибровочной поверхности}
+
+
+    \begin{figure}[hp]
+        \includegraphics[width=0.7\linewidth]{S.eps}
+        \caption{\small Разностный сигнал $I_{A-B}$ в направлении сканирования вдоль оси $x$~(a) и $y$~(b).}
+        {\label{fig:inputSphere}}% chktex 8
+    \end{figure}
+
+    \newpage
+    Исследуемая область представляется в виде матриц $K^x$, $K^y$ размером $(N,N)$, элементами которых является интенсивность сигнала $k^x (i,j)$, $k^y (i,j)$ в точке $(x_j, y_i)$.
+
+    Для каждого элемента $k^x_{i,j}$ матрицы $K^x$, который принадлежит калибровочной поверхности, найдем производную $\frac{\partial z}{\partial x} \big|_{(x_j,y_i)} $ аналитически, таким образом составляя таблицу, задающую сеточные значения функции обратной к аппаратной функции $\hat{F^x}$ зависимости сигнала $K^x_{i,j} = F^x (\tan(\alpha^x_{i,j}))$ от угла наклона поверхности $alpha^x$ к оси $x$.
+    \begin{center}
+        \begin{tabular}{| c| c |}
+            \hline
+            $ k^x_{i,j} $ & $ \tan{ \frac{\partial z(x_j, y_i)}{\partial x} } $ \\
+            \hline
+            \vdots          & \vdots \\
+            \hline
+            $ k^x_{i',j'} $ & $ \tan{ \frac{\partial z(x_{j'}, y_{i'})}{\partial x} } $ \\
+            \hline
+        \end{tabular}
+    \end{center}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Нахождение функции, обратной к аппаратной функции микроскопа}
+    \begin{figure}
+        \includegraphics[width=0.9\linewidth]{Tables.eps}
+        \caption{График аппаратных функций $F^x$, $F^y$ зависимости угла наклона поверхности (в градусах) от интенсивности сигнала. И их табличного представления $\hat{F^x}$, $\hat{F^y}$}
+        {\label{fig:Tables}}% chktex 8
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Восстановление градиента поверхности}
+    \begin{figure}
+        \includegraphics[width=0.5\linewidth]{P.eps}
+        \caption{Входные изображения (a) и (b) восстанавливаемой поверхности и её карта углов (c) и (d).}
+        {\label{fig:Pyr}}% chktex 8
+    \end{figure}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{Восстановление поверхности}
+
+    \begin{displaymath}
+        \left\{
+            \begin{split}
+        &\nabla Z(x,y) = (P^x, P^y), \\
+        &Z(0,0) = 0,
+            \end{split}
+        \right.
+    \end{displaymath}
+
+    Преобразуем $P^x$ следующим образом
+    \begin{equation}
+        P^x \equiv
+        \left(
+            \begin{array}{cccc}
+                p_{1,1} & p_{1,2} & \cdots & p_{1,N} \\
+                p_{2,1} & p_{2,2} & \cdots & p_{2,N} \\
+                \vdots & \ddots & \vdots  \\
+                p_{N,1} & p_{N,2} & \cdots & p_{N,N}
+            \end{array}
+        \right)
+        \equiv{}
+        \left(% chktex 37
+            \begin{array}{c}
+                p_{1,1} \\
+                p_{2,1} \\
+                \vdots \\
+                p_{N,1} \\
+                p_{1,2} \\
+                p_{2,2} \\
+                \vdots \\
+                p_{1,N} \\
+                \vdots \\
+                p_{N,N}
+            \end{array}
+        \right)
+        \equiv{}  B^x.
+    \end{equation}
+
+    Поступая аналогично с $P^y$ получим $B^y$ и с искомой функцией $Z$~---~$\hat{Z}$.
+
+    Составим матрицу $A$ размером $(2N^2, N^2)$, где первые $N^2$ строк соответствуют конечно разностной аппроксимации $\frac{\partial}{\partial x}$, а последние $N^2$ строк~---~$\frac{\partial}{\partial y}$.
+
+    Введем переменную сдвига индексов $s = N^2$ для второй части матрицы $A$.
+    \begin{equation}
+        \begin{array}{lll}
+            a_{i,i} = -1/h            & for & i = 1:N^2                                       \\
+            a_{i,i+N} = 1/h           & for & i = 1:N^2 - N                                   \\
+            a_{i,i-N} = 1/h           & for & i = N^2 - N:N^2                                 \\
+            a_{s+i+j, i+j} = -1/h     & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1, j = 0:N-2  \\
+            a_{s+i+j, i+j+1} = -1/h   & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1, j = 0:N-2  \\
+            a_{s+i+N-1, i+N-1} = -1/h & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1             \\
+            a_{s+i+N-1, i+N-2} = 1/h  & for & i = 1, N+1, 2N+1,~\dots, (N-1)N + 1
+        \end{array}
+    \end{equation}
+
+    Составим СЛАУ
+    \begin{equation}
+        \label{eq:SLAE}
+        A \hat{Z} = \left(
+            \begin{array}{l}
+                B^x \\
+                B^y
+            \end{array}
+        \right)
+        \equiv{} B
+    \end{equation}
+
+    Псевдонормальное решение которой будет являться искомая функция $Z = {( A^T A + \alpha C)}^{-1} ( A^T B) $ представляющая восстанавливаемую поверхность.
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Результат восстановления.}
+    \begin{figure}
+        \includegraphics[width=0.7\linewidth]{berger.eps}
+        \caption{Результат восстановления поверхности представленной на рис.~\ref{fig:Pyr}.}
+        {\label{fig:berger}}% chktex 8
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Восстановление поверхности после пробы твердости с помощью индентора Виккерса.}
+    \begin{figure}
+        \includegraphics[width=0.8\linewidth]{indentor-source.eps}
+        \caption{Изображение $I_{AB} \; (a), I_{EF} \; (b)$ золотой пластины после теста Виккерса. Профиль синей линии представлен на рис.~\ref{fig:indentor}.}
+        {\label{fig:indentor-source}}% chktex 8
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Результат восстановления.}
+    \begin{figure}
+        \includegraphics[width=0.5\linewidth]{indentor.eps}
+        \caption{Результат восстановления поверхности представленной на рис.~\ref{fig:indentor-source}.}
+        {\label{fig:indentor}}% chktex 8
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    Текст презентации доступен по ссылке:
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+    \bibliography{report}
+\end{frame}
+
+\end{document}
